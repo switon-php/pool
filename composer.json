@@ -1,6 +1,6 @@
 {
   "name": "switon/pool",
-  "description": "Connection pooling and borrowed-resource lifecycle management for Switon Framework",
+  "description": "Connection pooling and resource lifecycle management for Switon Framework",
   "type": "library",
   "keywords": [
     "switon",
