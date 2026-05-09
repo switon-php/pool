@@ -1,0 +1,44 @@
+{
+  "name": "switon/pool",
+  "description": "Connection pooling and borrowed-resource lifecycle management for Switon Framework",
+  "type": "library",
+  "keywords": [
+    "switon",
+    "pooling",
+    "connections",
+    "resources"
+  ],
+  "homepage": "https://github.com/switon-php/pool",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "switon",
+      "email": "admin@switon.dev"
+    }
+  ],
+  "support": {
+    "source": "https://github.com/switon-php/pool",
+    "issues": "https://github.com/switon-php/pool/issues",
+    "docs": "https://docs.switon.dev/latest/pool"
+  },
+  "require": {
+    "php": ">=8.3",
+    "psr/event-dispatcher": "^1.0",
+    "switon/core": "^1.0",
+    "switon/event": "^1.0",
+    "switon/sync": "^1.0"
+  },
+  "require-dev": {
+    "switon/testing": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Switon\\Pooling\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Switon\\Pooling\\Tests\\": "tests/"
+    }
+  }
+}
