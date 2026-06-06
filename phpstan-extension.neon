@@ -1,0 +1,5 @@
+services:
+    -
+        class: Switon\Pooling\PhpStan\PoolGuardMethodsClassReflectionExtension
+        tags:
+            - phpstan.broker.methodsClassReflectionExtension
