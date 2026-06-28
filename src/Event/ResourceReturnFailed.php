@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Switon\Pooling\Event;
 
 use JsonSerializable;
+use Switon\Core\SenderAwareInterface;
 use Switon\Eventing\Attribute\EventLevel;
 use Switon\Eventing\Severity;
 use Switon\Pooling\PoolManagerInterface;
@@ -18,19 +19,28 @@ use Switon\Pooling\PoolManagerInterface;
  * @see \Switon\Pooling\Event\ResourceReturned
  */
 #[EventLevel(Severity::WARNING)]
-class ResourceReturnFailed implements JsonSerializable
+class ResourceReturnFailed implements JsonSerializable, SenderAwareInterface
 {
     /**
-     * @param PoolManagerInterface<object, object> $poolManager Pool manager that could not accept the returned resource.
+     * @param object $owner Owner of the pooled resource
+     * @param object $instance Returned resource instance
+     * @param string $type Pool type
+     * @param string $reason Failure reason code
+     * @param string $message Failure detail message
      */
     public function __construct(
-        public PoolManagerInterface $poolManager,
-        public object               $owner,
-        public object               $instance,
-        public string               $type,
-        public string               $reason,
-        public string               $message,
+        public PoolManagerInterface $sender,
+        public object $owner,
+        public object $instance,
+        public string $type,
+        public string $reason,
+        public string $message,
     ) {
+    }
+
+    public function getSender(): PoolManagerInterface
+    {
+        return $this->sender;
     }
 
     /** @return array<string, mixed> */

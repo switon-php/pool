@@ -135,7 +135,7 @@ class PoolManager implements PoolManagerInterface
         if (!$stack = $this->pools[$owner][$type] ?? null) {
             $this->eventDispatcher->dispatch(
                 new ResourceReturnFailed(
-                    poolManager: $this,
+                    sender: $this,
                     owner: $owner,
                     instance: $instance,
                     type: $type,
@@ -151,7 +151,7 @@ class PoolManager implements PoolManagerInterface
         } catch (ChannelFullException) {
             $this->eventDispatcher->dispatch(
                 new ResourceReturnFailed(
-                    poolManager: $this,
+                    sender: $this,
                     owner: $owner,
                     instance: $instance,
                     type: $type,

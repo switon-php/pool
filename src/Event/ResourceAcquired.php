@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Switon\Pooling\Event;
 
 use JsonSerializable;
+use Switon\Core\SenderAwareInterface;
 use Switon\Eventing\Attribute\EventLevel;
 use Switon\Eventing\Severity;
 use Switon\Pooling\PoolManagerInterface;
@@ -21,18 +22,26 @@ use function round;
  * @see \Switon\Pooling\Event\ResourceReturned
  */
 #[EventLevel(Severity::DEBUG)]
-class ResourceAcquired implements JsonSerializable
+class ResourceAcquired implements JsonSerializable, SenderAwareInterface
 {
     /**
-     * @param PoolManagerInterface<object, object> $poolManager Pool manager that completed the acquire.
+     * @param object $owner Owner of the pooled resource
+     * @param object $instance Acquired resource instance
+     * @param string $type Pool type
+     * @param float $elapsed Acquire time in seconds
      */
     public function __construct(
-        public PoolManagerInterface $poolManager,
-        public object               $owner,
-        public object               $instance,
-        public string               $type,
-        public float                $elapsed,
+        public PoolManagerInterface $sender,
+        public object $owner,
+        public object $instance,
+        public string $type,
+        public float $elapsed,
     ) {
+    }
+
+    public function getSender(): PoolManagerInterface
+    {
+        return $this->sender;
     }
 
     /** @return array<string, mixed> */
