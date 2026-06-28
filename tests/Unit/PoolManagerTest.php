@@ -1117,4 +1117,25 @@ class PoolManagerTest extends TestCase
         $this->expectException(FullException::class);
         $this->poolManager->add($this->owner, new TestConnection('overflow'), 1, 'ephemeral');
     }
+
+    public function testAddKeepsOwnerProvidedOnPooledResource(): void
+    {
+        $connection = new TestConnection('owned');
+        $this->injector->inject($connection, ['owner' => $this->owner]);
+        $this->poolManager->add($this->owner, $connection, 1, 'default');
+
+        $acquired = $this->poolManager->acquire($this->owner, null, 'default');
+
+        $this->assertSame($this->owner, $acquired->getOwner());
+    }
+
+    public function testAddKeepsOwnerProvidedOnFactoryCreatedResource(): void
+    {
+        $this->poolManager->add($this->owner, [TestConnection::class, ['id' => 'factory', 'owner' => $this->owner]], 1, 'default');
+
+        $acquired = $this->poolManager->acquire($this->owner, null, 'default');
+
+        $this->assertInstanceOf(TestConnection::class, $acquired);
+        $this->assertSame($this->owner, $acquired->getOwner());
+    }
 }

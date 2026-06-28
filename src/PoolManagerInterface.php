@@ -28,7 +28,7 @@ use Switon\Pooling\Exception\PoolNotFoundException;
  * Road-signs:
  * - owner + type identify one pool
  * - single-pool callers can omit type
- * - create()/add() define capacity and seed resources
+ * - create()/add() define capacity and seed resources; pooled resources implement {@see \Switon\Core\OwnerAwareInterface}
  * - guard() is the default borrow path
  * - acquire()/release() for explicit lifecycle
  *
@@ -45,7 +45,7 @@ use Switon\Pooling\Exception\PoolNotFoundException;
  * @see \Switon\Pooling\Event\ResourceBusy
  *
  * @template TParent of object
- * @template TResource of object
+ * @template TResource of object&\Switon\Core\OwnerAwareInterface
  */
 interface PoolManagerInterface
 {
