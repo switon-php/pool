@@ -106,10 +106,13 @@ class PoolManager implements PoolManagerInterface
             );
         }
 
-        if (!$stack = $this->pools[$owner][$type] ?? null) {
-            $this->pools[$owner] ??= [];
-            $this->pools[$owner][$type] = $stack = new Stack($size);
-        } elseif ($stack->length() + $size > $stack->capacity()) {
+        if (!$this->exists($owner, $type)) {
+            $this->create($owner, $size, $type);
+        }
+
+        $stack = $this->pools[$owner][$type];
+
+        if ($stack->length() + $size > $stack->capacity()) {
             FullException::raise(
                 'Pool "{type}" capacity exceeded: trying to add {size} to pool with {current}/{capacity} resources',
                 ['type' => $type, 'owner' => $owner::class, 'size' => $size, 'current' => $stack->length(), 'capacity' => $stack->capacity()]

@@ -71,6 +71,12 @@ interface PoolManagerInterface
     /**
      * Add connection instances to pool.
      *
+     * Creates the pool automatically when it does not exist (capacity equals {@see $size}),
+     * makes the first instance from {@see $sample}, then clones it for any remaining slots.
+     *
+     * When capacity must be declared separately, call {@see create()} first, then {@see add()}
+     * within that fixed capacity.
+     *
      * @param object $owner Pool owner object
      * @param TResource|array{0: class-string, 1?: array<string, mixed>} $sample Connection instance or [className, parameters]
      * @param int $size Number of connections to add
