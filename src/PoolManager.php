@@ -6,6 +6,7 @@ namespace Switon\Pooling;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Switon\Core\Attribute\Autowired;
+use Switon\Core\ClockInterface;
 use Switon\Core\MakerInterface;
 use Switon\Pooling\Event\ResourceAcquired;
 use Switon\Pooling\Event\ResourceAcquiring;
@@ -23,7 +24,6 @@ use Switon\Sync\Stack;
 use WeakMap;
 
 use function is_array;
-use function microtime;
 
 /**
  * Default implementation of <code>PoolManagerInterface</code>.
@@ -54,6 +54,7 @@ use function microtime;
 class PoolManager implements PoolManagerInterface
 {
     #[Autowired] protected EventDispatcherInterface $eventDispatcher;
+    #[Autowired] protected ClockInterface $clock;
     #[Autowired] protected MakerInterface $maker;
 
     /** @var WeakMap<object, array<string, Stack>> Pools grouped by owner and type. */
@@ -181,7 +182,7 @@ class PoolManager implements PoolManagerInterface
         }
 
         $this->eventDispatcher->dispatch(new ResourceAcquiring($this, $owner, $type));
-        $start_time = microtime(true);
+        $start_time = $this->clock->microtime();
         try {
             $instance = $timeout !== null ? $stack->pop($timeout) : $stack->pop();
         } catch (ChannelEmptyException $e) {
@@ -193,7 +194,7 @@ class PoolManager implements PoolManagerInterface
             $this->eventDispatcher->dispatch(new ResourceBusy($this, $owner, $type, $capacity, $timeout ?? 0));
             BusyException::raise('Pool "{type}" exhausted: all {capacity} resources are in use, timeout after {timeout}s', ['type' => $type, 'owner' => $owner::class, 'capacity' => $capacity, 'timeout' => $timeout ?? 0]);
         }
-        $this->eventDispatcher->dispatch(new ResourceAcquired($this, $owner, $instance, $type, microtime(true) - $start_time));
+        $this->eventDispatcher->dispatch(new ResourceAcquired($this, $owner, $instance, $type, $this->clock->elapsed($start_time)));
 
         return $instance;
     }
