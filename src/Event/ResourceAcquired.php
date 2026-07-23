@@ -25,6 +25,8 @@ use function round;
 class ResourceAcquired implements JsonSerializable, SenderAwareInterface
 {
     /**
+     * @param PoolManagerInterface<object, \Switon\Core\OwnerAwareInterface<object>> $sender Pool manager that emitted the event
+
      * @param object $owner Owner of the pooled resource
      * @param object $instance Acquired resource instance
      * @param string $type Pool type
@@ -39,6 +41,7 @@ class ResourceAcquired implements JsonSerializable, SenderAwareInterface
     ) {
     }
 
+    /** @return PoolManagerInterface<object, \Switon\Core\OwnerAwareInterface<object>> */
     public function getSender(): PoolManagerInterface
     {
         return $this->sender;

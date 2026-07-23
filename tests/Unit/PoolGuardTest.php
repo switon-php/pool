@@ -6,11 +6,10 @@ namespace Switon\Pooling\Tests\Unit;
 
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use stdClass;
 use Switon\Pooling\PoolGuard;
 use Switon\Pooling\PoolManagerInterface;
-use Error;
-use RuntimeException;
 
 #[AllowMockObjectsWithoutExpectations]
 class PoolGuardTest extends TestCase
@@ -27,16 +26,16 @@ class PoolGuardTest extends TestCase
         $this->assertSame($resource, $scoped->resource);
     }
 
-    public function testPropertiesAreReadonly(): void
+    public function testExposesBorrowedParentAndResource(): void
     {
         $poolManager = $this->createMock(PoolManagerInterface::class);
-        $scoped = new PoolGuard($poolManager, new stdClass(), new stdClass());
+        $parent = new stdClass();
+        $resource = new stdClass();
 
-        $this->expectException(Error::class);
-        $this->expectExceptionMessage('Cannot modify readonly property');
+        $scoped = new PoolGuard($poolManager, $parent, $resource);
 
-        // @phpstan-ignore-next-line intentional readonly mutation assertion
-        $scoped->parent = new stdClass();
+        $this->assertSame($parent, $scoped->parent);
+        $this->assertSame($resource, $scoped->resource);
     }
 
     public function testCanBeUsedWithNamedParameters(): void

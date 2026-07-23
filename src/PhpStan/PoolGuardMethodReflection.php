@@ -16,11 +16,11 @@ use PHPStan\Type\Type;
 /**
  * Represents one dynamic proxy method exposed by <code>PoolGuard::__call()</code> to PHPStan.
  */
-final class PoolGuardMethodReflection implements MethodReflection
+class PoolGuardMethodReflection implements MethodReflection
 {
     public function __construct(
-        private ClassReflection $declaringClass,
-        private string          $name,
+        protected ClassReflection $declaringClass,
+        protected string          $name,
     ) {
     }
 

@@ -16,7 +16,7 @@ use function microtime;
  * - call <code>close()</code> or <code>release()</code> early only when you want to hand the resource back before destruction
  *
  * @template TParent of object
- * @template TResource of object
+ * @template TResource of object&\Switon\Core\OwnerAwareInterface
  *
  * @mixin TResource
  *
@@ -46,9 +46,9 @@ class PoolGuard
      */
     public function __construct(
         protected PoolManagerInterface $poolManager,
-        public readonly object         $parent,
-        public readonly object         $resource,
-        protected readonly string      $type = 'default'
+        public object $parent,
+        public object $resource,
+        protected string $type = 'default'
     ) {
         $this->borrowedAt = microtime(true);
     }

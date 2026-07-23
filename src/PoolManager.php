@@ -49,7 +49,7 @@ use function is_array;
  * @see \Switon\Pooling\Event\ResourceReturnFailed
  * @see \Switon\Pooling\Event\ResourceBusy
  *
- * @implements PoolManagerInterface<object, object>
+ * @implements PoolManagerInterface<object, \Switon\Core\OwnerAwareInterface<object>>
  */
 class PoolManager implements PoolManagerInterface
 {

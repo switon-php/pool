@@ -22,6 +22,8 @@ use Switon\Pooling\PoolManagerInterface;
 class ResourceAcquiring implements JsonSerializable, SenderAwareInterface
 {
     /**
+     * @param PoolManagerInterface<object, \Switon\Core\OwnerAwareInterface<object>> $sender Pool manager that emitted the event
+
      * @param object $owner Owner of the pooled resource
      * @param string $type Pool type
      */
@@ -32,6 +34,7 @@ class ResourceAcquiring implements JsonSerializable, SenderAwareInterface
     ) {
     }
 
+    /** @return PoolManagerInterface<object, \Switon\Core\OwnerAwareInterface<object>> */
     public function getSender(): PoolManagerInterface
     {
         return $this->sender;

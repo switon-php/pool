@@ -13,7 +13,7 @@ use Switon\Pooling\PoolManagerInterface;
 /**
  * Event emitted when a resource return attempt fails.
  *
- * Log category: <code>switon.pooling.resource.return_failed</code>
+ * Log category: <code>switon.pooling.resource.return.failed</code>
  *
  * @see \Switon\Pooling\PoolManager
  * @see \Switon\Pooling\Event\ResourceReturned
@@ -22,6 +22,8 @@ use Switon\Pooling\PoolManagerInterface;
 class ResourceReturnFailed implements JsonSerializable, SenderAwareInterface
 {
     /**
+     * @param PoolManagerInterface<object, \Switon\Core\OwnerAwareInterface<object>> $sender Pool manager that emitted the event
+
      * @param object $owner Owner of the pooled resource
      * @param object $instance Returned resource instance
      * @param string $type Pool type
@@ -38,6 +40,7 @@ class ResourceReturnFailed implements JsonSerializable, SenderAwareInterface
     ) {
     }
 
+    /** @return PoolManagerInterface<object, \Switon\Core\OwnerAwareInterface<object>> */
     public function getSender(): PoolManagerInterface
     {
         return $this->sender;
