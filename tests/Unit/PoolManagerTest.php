@@ -30,8 +30,6 @@ use Switon\Pooling\Tests\TestCase;
  * - Pool capacity and size management
  * - Exception handling
  * - Event dispatching
- *
- * @group pool
  */
 class PoolManagerTest extends TestCase
 {

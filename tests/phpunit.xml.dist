@@ -32,6 +32,7 @@
             <directory>../src/Event</directory>
             <directory>../src/Exception</directory>
             <directory>../src/Pool/Event</directory>
+            <directory>../src/PhpStan</directory>
         </exclude>
     </source>
 </phpunit>
