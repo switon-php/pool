@@ -115,6 +115,6 @@ The pool itself is configuration-light. Owners create and seed their own pools i
 
 - **To read short answers:** [FAQ](faq.md#pool-faq)
 - **To understand the trade-offs:** [Design Rationale](design.md#design-rationale)
-- **To pool database clients:** [DB Package](../../db/docs/README.md)
-- **To pool Redis clients:** [Redis Package](../../redis/docs/README.md)
-- **To pool outbound HTTP engines:** [HTTP Client Package](../../http-client/docs/README.md)
+- **To pool database clients:** [DB Package](https://github.com/switon-php/db/blob/main/docs/README.md)
+- **To pool Redis clients:** [Redis Package](https://github.com/switon-php/redis/blob/main/docs/README.md)
+- **To pool outbound HTTP engines:** [HTTP Client Package](https://github.com/switon-php/http-client/blob/main/docs/README.md)

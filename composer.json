@@ -19,7 +19,7 @@
     "support": {
         "source": "https://github.com/switon-php/pool",
         "issues": "https://github.com/switon-php/pool/issues",
-        "docs": "https://docs.switon.dev/latest/pool"
+        "docs": "https://github.com/switon-php/pool/blob/main/docs/README.md"
     },
     "require": {
         "php": ">=8.3",

@@ -51,7 +51,7 @@ final class ReportService
 }
 ```
 
-Docs: https://docs.switon.dev/latest/pool
+Docs: https://github.com/switon-php/pool/blob/main/docs/README.md
 
 ## License
 
